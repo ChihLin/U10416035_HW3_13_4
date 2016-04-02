@@ -6,15 +6,21 @@ import java.util.Scanner;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
 
+
 public class Calendarrr {
 	/** Main method */
 	public static void main(String[] args) {
 
 		int year;
 		int month;
+		Calendar date;
 
 		Scanner input = new Scanner(System.in);
 
+		//the Calendar ' s method
+		date = Calendar.getInstance();
+		int para = args.length;
+/*
 		// Prompt the user to enter year
 		System.out.print("Enter full year (e.g., 2001): ");
 		year = input.nextInt();
@@ -23,10 +29,26 @@ public class Calendarrr {
 		System.out.print("Enter month in number between 1 and 12: ");
 		month = input.nextInt();
 
+
 		// Print calendar for the month of the year
 		printMonth(year, month);
-
-
+*/
+		
+		if (para == 2) {
+			month  = Integer.parseInt(args[0]);
+			year = Integer.parseInt(args[1]);
+			Calendarrr.printMonth(year,month);
+		}
+		else if (para == 1) {
+			month  = Integer.parseInt(args[0]);
+			year = (date.get(Calendar.YEAR));
+			Calendarrr.printMonth(year,month);
+		} 
+		else {
+			month = (date.get(Calendar.MONTH))+1;
+			year = (date.get(Calendar.YEAR));
+			Calendarrr.printMonth(year,month);
+		 }
 	}
 
 
@@ -72,27 +94,23 @@ public class Calendarrr {
 	  /** Print month body */
 	  public static void printMonthBody(int year, int month) {
 
+		// Get start day of the week for the first date in the month
+		int startDay = getStartDay(year, month);
 
-		GregorianCalendar g = new GregorianCalendar();
+		// Get number of days in the month
+		int numberOfDaysInMonth = getNumberOfDaysInMonth(year, month);
 
-    // Get start day of the week for the first date in the month
-    int startDay = getStartDay(year, month);
+		// Pad space before the first day of the month
+		int i = 0;
+		for (i = 0; i < startDay; i++)
+		System.out.print("    ");
 
-    // Get number of days in the month
-    int numberOfDaysInMonth = getNumberOfDaysInMonth(year, month);
+		for (i = 1; i <= numberOfDaysInMonth; i++) {
+		System.out.printf("%4d", i);
 
-    // Pad space before the first day of the month
-    int i = 0;
-    for (i = 0; i < startDay; i++)
-      System.out.print("    ");
-
-    for (i = 1; i <= numberOfDaysInMonth; i++) {
-      System.out.printf("%4d", i);
-
-      if ((i + startDay) % 7 == 0)
-        System.out.println();
-    }
-
+		if ((i + startDay) % 7 == 0)
+		System.out.println();
+    	}
 	    System.out.println();
 	    
 	}
